@@ -15,6 +15,11 @@ class ViewController: UIViewController {
     @IBOutlet var heightSlider: UISlider!
     @IBOutlet var weightSlider: UISlider!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+    
     @IBAction func heightSliderChanged(_ sender: UISlider) {
        let formattedHeight = String(format: "%.2f", sender.value) + "m"
         print(formattedHeight)
@@ -36,12 +41,18 @@ class ViewController: UIViewController {
         
         print(BMI)
         
+         let secondVC = SecondViewController()
+        secondVC.bmiValue = String(format: "%.1f", BMI)
+        
+        self.present(secondVC, animated: true, completion: nil)
+        
+        
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
+   
+    
+    
+    
 
 
 }
