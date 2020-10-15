@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalculateViewController: UIViewController {
+    
+    var BMI: Float?
  
     @IBOutlet var heightLabel: UILabel!
     @IBOutlet var weightLabel: UILabel!
@@ -32,28 +34,32 @@ class ViewController: UIViewController {
         
     }
     
-    
+     
     @IBAction func calculatePressed(_ sender: UIButton) {
         let height = heightSlider.value
         let weight = weightSlider.value
         
-        let BMI = weight / pow(height, 2)
+        BMI = weight / pow(height, 2)
+
+        self.performSegue(withIdentifier: "goToResult", sender: self)
         
-        print(BMI)
-        
-         let secondVC = SecondViewController()
-        secondVC.bmiValue = String(format: "%.1f", BMI)
-        
-        self.present(secondVC, animated: true, completion: nil)
+//Programattic way of linking view controllers
+//         let secondVC = SecondViewController()
+//        secondVC.bmiValue = String(format: "%.1f", BMI)
+//
+//        self.present(secondVC, animated: true, completion: nil)
         
         
     }
     
-   
-    
-    
-    
-
-
+    override func prepare(for segue: UIStoryboardSegue , sender: Any? ) {
+        if segue.identifier == "goToResult" {
+            print("YES")
+            let destinationVC = segue.destination as! ResultsViewController
+            destinationVC.bmiValue = String(format: "%.2f", BMI!)
+        } else {
+            print("NO")
+        }
+    }
 }
 
