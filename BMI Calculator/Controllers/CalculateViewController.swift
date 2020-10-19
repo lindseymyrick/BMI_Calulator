@@ -10,7 +10,9 @@ import UIKit
 
 class CalculateViewController: UIViewController {
     
-    var BMI: Float?
+//    var BMI: Float?
+    
+    var calculatorBrain = CalculatorBrain()
  
     @IBOutlet var heightLabel: UILabel!
     @IBOutlet var weightLabel: UILabel!
@@ -39,7 +41,10 @@ class CalculateViewController: UIViewController {
         let height = heightSlider.value
         let weight = weightSlider.value
         
-        BMI = weight / pow(height, 2)
+        calculatorBrain.calculateBMI(height: height, weight: weight)
+//        BMI = weight / pow(height, 2)
+        
+        
 
         self.performSegue(withIdentifier: "goToResult", sender: self)
         
@@ -56,7 +61,10 @@ class CalculateViewController: UIViewController {
         if segue.identifier == "goToResult" {
             print("YES")
             let destinationVC = segue.destination as! ResultsViewController
-            destinationVC.bmiValue = String(format: "%.2f", BMI!)
+//            destinationVC.bmiValue = String(format: "%.2f", BMI!)
+            destinationVC.bmiValue = String(format: "%.2f", calculatorBrain.getBMIValue())
+            destinationVC.advice = calculatorBrain.getAdvice()
+            destinationVC.color = calculatorBrain.getColor()
         } else {
             print("NO")
         }
